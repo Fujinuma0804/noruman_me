@@ -11,14 +11,14 @@ gsap.registerPlugin(ScrollTrigger);
 function initDecorativeLines() {
     const redLine = document.querySelector('.decor-line-red');
     const yellowLine = document.querySelector('.decor-line-yellow');
-    
+
     if (redLine && yellowLine) {
         // Set initial positions - make sure they start in view
         gsap.set([redLine, yellowLine], {
             opacity: 0.8,
             willChange: 'transform'
         });
-        
+
         // Red line - sophisticated diagonal movement with rotation
         gsap.to(redLine, {
             y: '-50vh',
@@ -34,7 +34,7 @@ function initDecorativeLines() {
                 invalidateOnRefresh: true
             }
         });
-        
+
         // Yellow line - counter-movement with subtle rotation
         gsap.to(yellowLine, {
             y: '-30vh',
@@ -44,13 +44,13 @@ function initDecorativeLines() {
             ease: "none",
             scrollTrigger: {
                 trigger: "body",
-                start: "top top", 
+                start: "top top",
                 end: "bottom top",
                 scrub: 1.5,
                 invalidateOnRefresh: true
             }
         });
-        
+
         // Additional sophisticated effect - opacity changes based on scroll
         ScrollTrigger.create({
             trigger: "body",
@@ -65,7 +65,7 @@ function initDecorativeLines() {
                 });
             }
         });
-        
+
         // Elegant floating animation on top of scroll movement
         gsap.to(redLine, {
             y: "+=20",
@@ -74,7 +74,7 @@ function initDecorativeLines() {
             repeat: -1,
             yoyo: true
         });
-        
+
         gsap.to(yellowLine, {
             y: "+=15",
             duration: 3.5,
@@ -83,7 +83,7 @@ function initDecorativeLines() {
             yoyo: true,
             delay: 1
         });
-        
+
         // Subtle scale breathing effect
         gsap.to(redLine, {
             scale: "+=0.05",
@@ -92,16 +92,16 @@ function initDecorativeLines() {
             repeat: -1,
             yoyo: true
         });
-        
+
         gsap.to(yellowLine, {
             scale: "+=0.03",
             duration: 5,
-            ease: "power1.inOut", 
+            ease: "power1.inOut",
             repeat: -1,
             yoyo: true,
             delay: 2
         });
-        
+
         console.log('Sophisticated decorative lines animation initialized');
     } else {
         console.warn('Decorative lines not found - check selectors .decor-line-red and .decor-line-yellow');
@@ -213,10 +213,10 @@ function initStepsAnimations() {
         "(min-width: 769px)": function () {
             if (graphContainer && stepsLeft && lastStepCard && stepCards.length > 0) {
                 ScrollTrigger.refresh();
-                
+
                 let isSticky = false;
                 let originalStyles = {};
-                
+
                 // Store original styles
                 const storeOriginalStyles = () => {
                     const computedStyle = window.getComputedStyle(graphContainer);
@@ -231,9 +231,9 @@ function initStepsAnimations() {
                         transform: computedStyle.transform
                     };
                 };
-                
+
                 storeOriginalStyles();
-                
+
                 ScrollTrigger.create({
                     trigger: stepsSection,
                     start: 'top bottom',
@@ -244,12 +244,12 @@ function initStepsAnimations() {
                         const stepsRightRect = stepsRight.getBoundingClientRect();
                         const lastStepRect = lastStepCard.getBoundingClientRect();
                         const stepsSectionRect = stepsSection.getBoundingClientRect();
-                        
+
                         const withinStepsSection = (
-                            stepsSectionRect.top <= window.innerHeight && 
+                            stepsSectionRect.top <= window.innerHeight &&
                             stepsSectionRect.bottom >= 0
                         );
-                        
+
                         if (!withinStepsSection && isSticky) {
                             isSticky = false;
                             // Restore original styles
@@ -257,31 +257,31 @@ function initStepsAnimations() {
                             console.log('Removed sticky - outside steps section');
                             return;
                         }
-                        
+
                         const shouldBeSticky = withinStepsSection && (
                             graphRect.bottom <= window.innerHeight &&
                             lastStepRect.top > window.innerHeight * 0.3 &&
                             stepsSectionRect.top <= 0
                         );
-                        
+
                         if (shouldBeSticky && !isSticky) {
                             isSticky = true;
-                            
+
                             // Get current viewport and container dimensions
                             const viewportWidth = window.innerWidth;
                             const viewportHeight = window.innerHeight;
                             const currentStepsRightRect = stepsRight.getBoundingClientRect();
-                            
+
                             // Calculate center position
                             const containerWidth = 480; // Fixed width for the graph
                             const containerHeight = 480; // Fixed height for the graph
-                            
+
                             // Center horizontally within the steps-right area
                             const leftPosition = currentStepsRightRect.left + (currentStepsRightRect.width - containerWidth) / 2;
-                            
+
                             // Center vertically in viewport
                             const topPosition = (viewportHeight - containerHeight) / 2;
-                            
+
                             gsap.set(graphContainer, {
                                 position: 'fixed',
                                 top: topPosition + 'px',
@@ -296,7 +296,7 @@ function initStepsAnimations() {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             });
-                            
+
                             // Ensure images are properly positioned - background centered, levels keep CSS positioning
                             const images = graphContainer.querySelectorAll('img');
                             images.forEach((img, index) => {
@@ -320,13 +320,13 @@ function initStepsAnimations() {
                                     });
                                 }
                             });
-                            
+
                             console.log('Made sticky and perfectly centered');
                         } else if (!shouldBeSticky && isSticky) {
                             isSticky = false;
                             // Restore original styles
                             gsap.set(graphContainer, originalStyles);
-                            
+
                             // Reset images to normal
                             const images = graphContainer.querySelectorAll('img');
                             images.forEach((img, index) => {
@@ -350,7 +350,7 @@ function initStepsAnimations() {
                                     });
                                 }
                             });
-                            
+
                             console.log('Removed sticky');
                         }
                     }
@@ -359,12 +359,12 @@ function initStepsAnimations() {
                 // ✅ Graph level animations for BIG SCREENS ONLY
                 const graphLevels = gsap.utils.toArray('.graph-container img:not(:first-child)');
                 const allCards = gsap.utils.toArray('.steps-content .step-card, .steps-content .step-card-last');
-                
+
                 if (graphLevels.length > 0 && allCards.length > 0) {
                     graphLevels.forEach((level, index) => {
                         if (allCards[index]) {
                             // Hide levels initially
-                            gsap.set(level, { 
+                            gsap.set(level, {
                                 opacity: 0,
                                 scale: 0.8
                             });
@@ -412,10 +412,10 @@ function initStepsAnimations() {
 
     // Step cards animation - KEEP ALL ANIMATIONS
     const allStepCards = gsap.utils.toArray('.step-card, .step-card-last');
-    
+
     allStepCards.forEach((card, index) => {
-        gsap.set(card, { 
-            opacity: 0, 
+        gsap.set(card, {
+            opacity: 0,
             x: -50,
             y: 20
         });
@@ -474,7 +474,7 @@ function initStepsAnimations() {
     const timelineLine = document.querySelector('.timeline-line');
     if (timelineLine) {
         gsap.set(timelineLine, { scaleY: 0, transformOrigin: 'top' });
-        
+
         gsap.to(timelineLine, {
             scaleY: 1,
             duration: 1.5,
@@ -516,22 +516,22 @@ function initRequestAnimations() {
         const title = textContent.querySelector('h4');
         const subtitle = textContent.querySelector('h5');
         const description = textContent.querySelector('p');
-        
+
         let isExpanded = false;
 
-         // Set initial states
-        gsap.set(card, { opacity: 0, y: "+=30"});
-        
+        // Set initial states
+        gsap.set(card, { opacity: 0, y: "+=30" });
+
         // Set initial overlay opacity to 0.3
         if (overlay) {
             gsap.set(overlay, { opacity: 0.3 });
         }
-        
+
         // Initially hide description text completely
         if (description) {
-            gsap.set(description, { 
-                opacity: 0, 
-                height: 0, 
+            gsap.set(description, {
+                opacity: 0,
+                height: 0,
                 overflow: 'hidden',
                 marginTop: 0,
                 paddingTop: 0,
@@ -546,14 +546,14 @@ function initRequestAnimations() {
         }
 
         // Card reveal animation (fade in)
-        gsap.to(card, { 
-            opacity: 1, 
-             y: "-=30",
+        gsap.to(card, {
+            opacity: 1,
+            y: "-=30",
             duration: 0.8,
             scrollTrigger: {
                 trigger: card,
                 start: 'top 80%',
-                
+
                 once: true
             },
             delay: index * 0.1
@@ -579,22 +579,22 @@ function initRequestAnimations() {
             toggleButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 if (!isExpanded) {
                     // Expand: Show description content
                     isExpanded = true;
-                    
+
                     // Change button icon to minus
                     if (toggleIcon) {
                         toggleIcon.src = "images/5_365.svg"; // minus icon
                     }
-                    
+
                     // Show description with animation
                     if (description) {
                         // Clear all GSAP transforms and inline styles
                         gsap.killTweensOf(description);
                         description.removeAttribute('style');
-                        
+
                         // Create a temporary clone to measure natural height
                         const clone = description.cloneNode(true);
                         clone.style.visibility = 'hidden';
@@ -604,23 +604,23 @@ function initRequestAnimations() {
                         clone.style.opacity = '1';
                         clone.style.display = 'block';
                         clone.style.marginTop = '10px';
-                        
+
                         // Add clone to measure
                         description.parentElement.appendChild(clone);
                         const naturalHeight = clone.offsetHeight;
                         description.parentElement.removeChild(clone);
-                        
+
                         // Set initial collapsed state
-                        gsap.set(description, { 
+                        gsap.set(description, {
                             height: 0,
                             opacity: 0,
                             marginTop: 0,
                             overflow: 'hidden',
                             display: 'block'
                         });
-                        
+
                         // Animate to expanded state
-                        gsap.to(description, { 
+                        gsap.to(description, {
                             opacity: 1,
                             height: naturalHeight,
                             marginTop: 10,
@@ -628,24 +628,24 @@ function initRequestAnimations() {
                             ease: "power2.out"
                         });
                     }
-                    
+
                     // Change overlay opacity to 0.9 when expanded
                     if (overlay) {
                         gsap.to(overlay, { opacity: 0.9, duration: 0.3 });
                     }
-                    
+
                 } else {
                     // Collapse: Hide description content
                     isExpanded = false;
-                    
+
                     // Change button icon back to plus
                     if (toggleIcon) {
                         toggleIcon.src = "images/5_348.svg"; // plus icon
                     }
-                    
+
                     // Hide description with animation
                     if (description) {
-                        gsap.to(description, { 
+                        gsap.to(description, {
                             opacity: 0,
                             height: 0,
                             marginTop: 0,
@@ -653,7 +653,7 @@ function initRequestAnimations() {
                             ease: "power2.in"
                         });
                     }
-                    
+
                     // Reset overlay opacity to 0.3
                     if (overlay) {
                         gsap.to(overlay, { opacity: 0.3, duration: 0.3 });
@@ -735,30 +735,30 @@ function initGalleryAnimations() {
         const imageWidth = images[0].offsetWidth + 10; // including gap
         const totalImages = images.length;
         const totalWidth = imageWidth * totalImages;
-        
+
         let currentPosition = 0;
         let animationId;
 
         // Auto-scroll function
         function startAutoScroll() {
             if (isInteracting) return;
-            
+
             const speed = 1; // pixels per frame
-            
+
             function animate() {
                 if (isInteracting) return;
-                
+
                 currentPosition += speed;
-                
+
                 // Reset position when we've scrolled through one full set
                 if (currentPosition >= totalWidth) {
                     currentPosition = 0;
                 }
-                
+
                 galleryContainer.style.transform = `translateX(-${currentPosition}px)`;
                 animationId = requestAnimationFrame(animate);
             }
-            
+
             animate();
         }
 
@@ -774,7 +774,7 @@ function initGalleryAnimations() {
         function snapToNearestImage() {
             const nearestIndex = Math.round(currentPosition / imageWidth);
             const targetPosition = nearestIndex * imageWidth;
-            
+
             // Handle wrapping
             if (targetPosition >= totalWidth) {
                 currentPosition = 0;
@@ -783,7 +783,7 @@ function initGalleryAnimations() {
                 currentPosition = targetPosition;
                 galleryContainer.style.transition = 'transform 0.3s ease-out';
                 galleryContainer.style.transform = `translateX(-${currentPosition}px)`;
-                
+
                 // Remove transition after animation
                 setTimeout(() => {
                     galleryContainer.style.transition = '';
@@ -801,7 +801,7 @@ function initGalleryAnimations() {
             if (!isDragging) {
                 isInteracting = false;
                 snapToNearestImage();
-                
+
                 // Resume auto-scroll after a short delay
                 setTimeout(() => {
                     startAutoScroll();
@@ -827,17 +827,17 @@ function initGalleryAnimations() {
         document.addEventListener('mousemove', (e) => {
             if (!isDragging) return;
             e.preventDefault();
-            
+
             const deltaX = startX - e.clientX;
             let newPosition = startPosition + deltaX;
-            
+
             // Allow smooth dragging with wrapping
             if (newPosition < 0) {
                 newPosition = totalWidth + newPosition;
             } else if (newPosition >= totalWidth) {
                 newPosition = newPosition - totalWidth;
             }
-            
+
             currentPosition = newPosition;
             galleryContainer.style.transform = `translateX(-${currentPosition}px)`;
         });
@@ -846,13 +846,13 @@ function initGalleryAnimations() {
             if (isDragging) {
                 isDragging = false;
                 galleryContainer.style.cursor = 'grab';
-                
+
                 // Snap to nearest image
                 snapToNearestImage();
-                
+
                 // Update current index based on position
                 currentIndex = Math.round(currentPosition / imageWidth) % totalImages;
-                
+
                 // Resume auto-scroll after delay
                 setTimeout(() => {
                     isInteracting = false;
@@ -875,14 +875,14 @@ function initGalleryAnimations() {
         galleryContainer.addEventListener('touchmove', (e) => {
             const deltaX = touchStartX - e.touches[0].clientX;
             let newPosition = touchStartPosition + deltaX;
-            
+
             // Handle wrapping
             if (newPosition < 0) {
                 newPosition = totalWidth + newPosition;
             } else if (newPosition >= totalWidth) {
                 newPosition = newPosition - totalWidth;
             }
-            
+
             currentPosition = newPosition;
             galleryContainer.style.transform = `translateX(-${currentPosition}px)`;
         }, { passive: true });
@@ -890,10 +890,10 @@ function initGalleryAnimations() {
         galleryContainer.addEventListener('touchend', () => {
             // Snap to nearest image
             snapToNearestImage();
-            
+
             // Update current index
             currentIndex = Math.round(currentPosition / imageWidth) % totalImages;
-            
+
             // Resume auto-scroll after delay
             setTimeout(() => {
                 isInteracting = false;
@@ -915,7 +915,7 @@ function initGalleryAnimations() {
         images.forEach((img, index) => {
             img.style.opacity = '0';
             img.style.transform = 'scale(0.8)';
-            
+
             setTimeout(() => {
                 img.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
                 img.style.opacity = '1';
@@ -1240,3 +1240,49 @@ if (window.innerWidth <= 768) {
         }
     });
 }
+
+
+$(document).ready(function () {
+    $('.carousel').slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        variableWidth: true,
+        infinite: true,
+        dots: false,
+        arrows: false,
+        centerMode: true,
+        centerPadding: '0px',
+        autoplay: true, // Enable autoplay
+        autoplaySpeed: 1000, // Autoplay interval in milliseconds
+        pauseOnHover: true, // Pause on hover
+        pauseOnFocus: true, // Pause on focus
+        swipeToSlide: true, // Allow manual swiping
+        touchMove: true,
+        responsive: [
+        {
+            breakpoint: 1024, // screens smaller than 1024px
+            settings: {
+                slidesToShow: 3,
+                centerMode: true,
+                centerPadding: '0px'
+            }
+        },
+        {
+            breakpoint: 768, // screens smaller than 768px
+            settings: {
+                slidesToShow: 1,
+                centerMode: true,
+                centerPadding: '20%'
+            }
+        },
+        {
+            breakpoint: 480, // screens smaller than 480px
+            settings: {
+                slidesToShow: 1,
+                centerMode: true,
+                centerPadding: '15%'
+            }
+        }
+    ]
+    });
+});
