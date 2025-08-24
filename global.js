@@ -507,6 +507,41 @@ function initStepsAnimations() {
 function initRequestAnimations() {
     const requestCards = document.querySelectorAll('.request-card');
 
+    // Function to collapse all other cards
+    function collapseAllOtherCards(currentCard) {
+        requestCards.forEach((otherCard, otherIndex) => {
+            if (otherCard !== currentCard) {
+                const otherDescription = otherCard.querySelector('.card-text-content p');
+                const otherToggleIcon = otherCard.querySelector('.toggle-button img');
+                const otherOverlay = otherCard.querySelector('.card-overlay');
+                
+                // Reset the expanded state for other cards
+                otherCard.isExpanded = false;
+                
+                // Change button icon back to plus
+                if (otherToggleIcon) {
+                    otherToggleIcon.src = "images/5_348.svg"; // plus icon
+                }
+                
+                // Hide description with animation
+                if (otherDescription) {
+                    gsap.to(otherDescription, {
+                        opacity: 0,
+                        height: 0,
+                        marginTop: 0,
+                        duration: 0.3,
+                        ease: "power2.in"
+                    });
+                }
+                
+                // Reset overlay opacity to 0.3
+                if (otherOverlay) {
+                    gsap.to(otherOverlay, { opacity: 0.3, duration: 0.3 });
+                }
+            }
+        });
+    }
+
     requestCards.forEach((card, index) => {
         const img = card.querySelector('img');
         const overlay = card.querySelector('.card-overlay');
@@ -517,7 +552,8 @@ function initRequestAnimations() {
         const subtitle = textContent.querySelector('h5');
         const description = textContent.querySelector('p');
 
-        let isExpanded = false;
+        // Store expanded state on the card element itself
+        card.isExpanded = false;
 
         // Set initial states
         gsap.set(card, { opacity: 0, y: "+=30" });
@@ -562,7 +598,7 @@ function initRequestAnimations() {
         // Hover animations (only on desktop)
         if (window.innerWidth > 768) {
             card.addEventListener('mouseenter', () => {
-                if (img && !isExpanded) {
+                if (img && !card.isExpanded) {
                     gsap.to(img, { scale: 1.05, duration: 0.3 });
                 }
             });
@@ -580,9 +616,12 @@ function initRequestAnimations() {
                 e.preventDefault();
                 e.stopPropagation();
 
-                if (!isExpanded) {
+                if (!card.isExpanded) {
+                    // First, collapse all other cards
+                    collapseAllOtherCards(card);
+                    
                     // Expand: Show description content
-                    isExpanded = true;
+                    card.isExpanded = true;
 
                     // Change button icon to minus
                     if (toggleIcon) {
@@ -636,7 +675,7 @@ function initRequestAnimations() {
 
                 } else {
                     // Collapse: Hide description content
-                    isExpanded = false;
+                    card.isExpanded = false;
 
                     // Change button icon back to plus
                     if (toggleIcon) {
