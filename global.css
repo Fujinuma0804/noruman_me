@@ -428,6 +428,10 @@ p {
     display: none;
 }
 
+#back_img {
+    display: none;
+}
+
 @media (max-width: 1200px) {
     .hero-right {
         right: -350px;
@@ -1299,10 +1303,6 @@ p {
         padding: 0px 0px 0px 0px;
     }
 
-    .gallery-section {
-        padding: 0px 0px;
-    }
-
     .message-section {
         background: url(./images/26677898.png);
         background-size: cover;
@@ -1500,13 +1500,6 @@ p {
         width: 100%;
         padding: 0px 10px 0px 10px;
     }
-}
-
-/* CSS for section section:gallery */
-.gallery-section {
-    padding: 10px 0;
-    padding-top: 0;
-    background-color: var(--background-light);
 }
 
 .gallery-scroll-container {
@@ -2343,12 +2336,6 @@ p {
         width: 90%;
     }
 
-    /* Fix gallery overflow on mobile */
-    .gallery-section {
-        overflow: hidden;
-        max-width: 100vw;
-    }
-
     .gallery-scroll-container {
         overflow-x: auto;
         max-width: 100vw;
@@ -2646,6 +2633,10 @@ p {
 
 
 @media screen and (max-width:500px) {
+    #back_img {
+        display: inline;
+    }
+
     .header-logo {
         top: 40px !important;
         left: 40px !important;
@@ -2728,12 +2719,12 @@ p {
     }
 
     .step-border {
-        width: 369px;
+        width: 400px;
         border-right: solid 1px white
     }
 
     .step-border-last {
-        width: 369px;
+        width: 400px;
         border-right: solid 1px white
     }
 
@@ -2742,7 +2733,6 @@ p {
 @media screen and (max-width:450px) {
     .background-decor{
         margin-top: 2000px;
-
     }
 
     .map-container {
