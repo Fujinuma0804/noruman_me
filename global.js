@@ -1291,7 +1291,7 @@ $(document).ready(function () {
         arrows: false,
         centerMode: true,
         centerPadding: '0px',
-        // autoplay: true, // Enable autoplay
+        autoplay: true, // Enable autoplay
         autoplaySpeed: 1000, // Autoplay interval in milliseconds
         pauseOnHover: true, // Pause on hover
         pauseOnFocus: true, // Pause on focus
