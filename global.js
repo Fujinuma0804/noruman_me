@@ -1315,11 +1315,35 @@ $(document).ready(function () {
             }
         },
         {
-            breakpoint: 480, // screens smaller than 480px
+            breakpoint: 600, // screens smaller than 600px
             settings: {
                 slidesToShow: 1,
                 centerMode: true,
                 centerPadding: '15%'
+            }
+        },
+        {
+            breakpoint: 500, // screens smaller than 500px
+            settings: {
+                slidesToShow: 1,
+                centerMode: true,
+                centerPadding: '10%'
+            }
+        },
+        {
+            breakpoint: 400, // screens smaller than 400px
+            settings: {
+                slidesToShow: 1,
+                centerMode: true,
+                centerPadding: '5%'
+            }
+        },
+        {
+            breakpoint: 360, // screens smaller than 360px
+            settings: {
+                slidesToShow: 1,
+                centerMode: true,
+                centerPadding: '2%'
             }
         }
     ]
