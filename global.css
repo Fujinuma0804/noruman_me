@@ -2663,6 +2663,7 @@ p {
     .gallery-img-2 {
         right: 38px !important;
         height: 240px;
+        top: 975px !important;
     }
 
     .request-card {
