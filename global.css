@@ -2635,6 +2635,14 @@ p {
 
 
 @media screen and (max-width:500px) {
+    .entry-button {
+        padding: 0 20px;
+    }
+    .entry-icon, .merged-icon-wrapper{
+        margin-right: 0px;
+        margin-inline: auto;
+    }
+
     #back_img {
         display: inline;
     }
@@ -3032,11 +3040,7 @@ p {
 
     .map-container img {
         scale: 0.7;
-    }
-
-    .entry-button {
-        padding: 0 20px;
-    }
+    }    
 
     .entry-icon {
         margin-right: 20px;
