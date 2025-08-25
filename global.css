@@ -2662,8 +2662,8 @@ p {
 
     .gallery-img-2 {
         right: 38px !important;
+        height: 240px;
     }
-
 
     .request-card {
         height: 400px !important;
@@ -2893,7 +2893,7 @@ p {
     }
 
     .gallery-img-4 {
-        padding-left: 20px;
+        /* padding-left: 20px; */
         width: 112px !important;
         height: 152px !important;
 
