@@ -2786,6 +2786,10 @@ p {
 }
 
 @media screen and (max-width:425px) {
+    .entry-text p {
+        width: auto;
+    }
+    
     .entry-buttons {
         margin-top: 0px;
     }
