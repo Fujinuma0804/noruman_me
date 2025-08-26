@@ -255,6 +255,10 @@ p {
     color: #282828;
 }
 
+#xxx {
+    display: none;
+}
+
 .link-border {
     /* border */
 
@@ -2737,6 +2741,9 @@ p {
     .step-border-last {
         width: 400px;
         border-right: solid 1px white
+    }
+    #xxx {
+        display: inline;
     }
 
 }
